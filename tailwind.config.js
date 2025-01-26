@@ -22,6 +22,7 @@ module.exports = {
         light: "#5F5F5F",
         dark: "#292929",
       },
+      divider: "#D9D9D9",
     },
     extend: {},
   },

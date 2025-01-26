@@ -5,7 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router";
 
 const App = () => {
   return (
-    <main className="w-screen h-screen flex flex-col items-center justify-center">
+    <main className="w-screen min-h-screen flex flex-col items-center justify-center">
       <Router>
         <body className="w-full h-full flex items-start justify-center">
           <Routes>
