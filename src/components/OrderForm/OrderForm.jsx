@@ -7,10 +7,12 @@ import {
 } from "@/components/OrderForm/OrderForm.constants";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const OrderForm = () => {
   const [values, setValues] = useState(initialValues);
   const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { size, thickness, name, extras } = values;
@@ -55,6 +57,7 @@ const OrderForm = () => {
       const res = await axios.post("https://reqres.in/api/pizza", values);
       if (res.status === 201) {
         console.log("Order summary: ", res.data);
+        navigate("/success");
       }
     } catch (err) {
       console.log("Failed to create order: ", err.message);
@@ -98,6 +101,7 @@ const OrderForm = () => {
                 className="flex items-center justify-start gap-2 text-gray-light text-base"
               >
                 <input
+                  data-testid="size-input"
                   type="radio"
                   name="size"
                   value={size.id}
@@ -117,6 +121,7 @@ const OrderForm = () => {
               Hamur Seç <span className="text-red">*</span>
             </label>
             <select
+              data-testid="thickness-input"
               name="thickness"
               value={values.thickness}
               onChange={handleChange}
@@ -145,6 +150,7 @@ const OrderForm = () => {
                 key={extra.id}
               >
                 <input
+                  data-testid="extra-input"
                   disabled={
                     values.extras.length >= 10 &&
                     !values.extras.includes(extra.id)
@@ -169,6 +175,7 @@ const OrderForm = () => {
             Adınız <span className="text-red">*</span>
           </label>
           <input
+            data-testid="name-input"
             type="text"
             id="name"
             name="name"
@@ -238,6 +245,7 @@ const OrderForm = () => {
             </button>
           </div>
           <button
+            data-testid="submit-button"
             disabled={isDisabled}
             type="submit"
             className="w-full bg-yellow disabled:bg-divider rounded-sm text-gray-dark !font-semibold px-6 py-3 cursor-pointer disabled:cursor-auto"
