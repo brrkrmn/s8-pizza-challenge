@@ -1,6 +1,6 @@
 const Success = () => {
   return (
-    <section className="relative bg-red w-full h-full px-4 py-7 flex flex-col items-center justify-start gap-12">
+    <section className="relative bg-red w-full h-screen px-4 py-7 flex flex-col items-center justify-start gap-12">
       <div className="w-full pt-20 tablet:pt-30 flex items-end justify-center">
         <img
           src="/images/iteration-1-images/logo.svg"

@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 const Home = () => {
   return (
-    <section className="bg-red bg-[url('/images/iteration-1-images/home-banner.png')] bg-[50%_0%] laptop:bg-cover bg-no-repeat w-full h-full px-4 py-7 flex flex-col items-center justify-start gap-12">
+    <section className="bg-red bg-[url('/images/iteration-1-images/home-banner.png')] bg-[50%_0%] laptop:bg-cover bg-no-repeat w-full h-screen px-4 py-7 flex flex-col items-center justify-start gap-12">
       <div className="w-full pt-20 flex items-end justify-center">
         <img
           src="/images/iteration-1-images/logo.svg"

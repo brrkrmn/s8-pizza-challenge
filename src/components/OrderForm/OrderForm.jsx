@@ -4,12 +4,50 @@ import {
   EXTRAS,
   SIZES,
 } from "@/components/OrderForm/OrderForm.constants";
+import { useState } from "react";
 
 const OrderForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    size: "",
+    thickness: "",
+    extras: [],
+    note: "",
+    quantity: 1,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleExtraChange = (e) => {
+    const extra = e.target.value;
+    setFormData((prev) => {
+      const isSelected = prev.extras.includes(extra);
+      return {
+        ...prev,
+        extras: isSelected
+          ? prev.extras.filter((id) => id !== extra)
+          : [...prev.extras, extra],
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <section className="w-full h-full flex flex-col items-center justify-start">
       <Header />
-      <form className="w-full max-w-[532px] h-full font-barlow text-gray-dark py-10 flex flex-col items-start justify-start gap-5">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-[532px] h-full font-barlow text-gray-dark py-10 flex flex-col items-start justify-start gap-5"
+      >
         <h2 className="text-[22px] font-semibold">
           Position Absolute Acı Pizza
         </h2>
@@ -42,6 +80,8 @@ const OrderForm = () => {
                   type="radio"
                   name="size"
                   value={size.id}
+                  checked={formData.size === size.id}
+                  onChange={handleChange}
                   className="focus:ring-red-500 flex items-center justify-center"
                 />
                 {size.title}
@@ -50,13 +90,15 @@ const OrderForm = () => {
           </fieldset>
           <fieldset className="flex flex-col !mr-40 items-start justify-start h-full gap-3">
             <label
-              htmlFor="dough-thickness"
+              htmlFor="thickness"
               className="text-xl font-semibold text-gray-dark"
             >
               Hamur Seç <span className="text-red">*</span>
             </label>
             <select
-              name="dough-thickness"
+              name="thickness"
+              value={formData.thickness}
+              onChange={handleChange}
               className="border-1 !font-semibold rounded-sm"
             >
               <option value="">Hamur Kalınlığı</option>
@@ -84,7 +126,9 @@ const OrderForm = () => {
                 <input
                   value={extra.id}
                   type="checkbox"
-                  id="extra"
+                  id={extra.id}
+                  checked={formData.extras.includes(extra.id)}
+                  onChange={handleExtraChange}
                   name="extra"
                 />
                 {extra.title}
@@ -103,6 +147,8 @@ const OrderForm = () => {
             type="text"
             id="name"
             name="name"
+            value={formData.name}
+            onChange={handleChange}
             className="border-1 w-full py-3 border-divider px-2 rounded-sm"
             placeholder="Siparişi teslim alacak kişinin adı"
           />
@@ -118,6 +164,8 @@ const OrderForm = () => {
             placeholder="Siparişine eklemek istediğin bir not var mı?"
             id="note"
             name="note"
+            value={formData.note}
+            onChange={handleChange}
             className="border-1 w-full py-3 border-divider px-2 rounded-sm resize-y min-h-[80px]"
           />
         </fieldset>
@@ -135,17 +183,39 @@ const OrderForm = () => {
         </div>
         <div className="w-full h-full flex items-center justify-center gap-4">
           <div className="w-fit flex items-center justify-center gap-0">
-            <button className="w-12 h-12 bg-yellow text-gray-dark !font-semibold rounded-l-sm">
+            <button
+              type="button"
+              disabled={formData.quantity === 1}
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  quantity: prev.quantity - 1,
+                }))
+              }
+              className="w-12 h-12 bg-yellow text-gray-dark !font-semibold rounded-l-sm disabled:bg-divider disabled:cursor-auto cursor-pointer"
+            >
               -
             </button>
             <p className="w-12 h-12 border-1 flex items-center justify-center border-divider">
-              a
+              {formData.quantity}
             </p>
-            <button className="bg-yellow text-gray-dark !font-semibold py-3 rounded-r-sm w-12 h-12">
+            <button
+              type="button"
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  quantity: prev.quantity + 1,
+                }))
+              }
+              className="bg-yellow text-gray-dark !font-semibold py-3 rounded-r-sm w-12 h-12 disabled:bg-divider disabled:cursor-auto cursor-pointer"
+            >
               +
             </button>
           </div>
-          <button className="w-full bg-yellow rounded-sm text-gray-dark !font-semibold px-6 py-3">
+          <button
+            type="submit"
+            className="w-full bg-yellow rounded-sm text-gray-dark !font-semibold px-6 py-3"
+          >
             SİPARİŞ VER
           </button>
         </div>
