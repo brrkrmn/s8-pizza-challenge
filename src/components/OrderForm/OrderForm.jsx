@@ -28,6 +28,12 @@ const OrderForm = () => {
     );
   }, [values]);
 
+  useEffect(() => {
+    const totalPrice =
+      (values.initialPrice + values.extras.length * 5) * values.quantity;
+    setValues((prev) => ({ ...prev, totalPrice }));
+  }, [values.extras, values.quantity]);
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -206,11 +212,11 @@ const OrderForm = () => {
           <h4 className="text-xl text-gray-dark">Sipariş Toplamı</h4>
           <div className="flex items-center justify-between w-full text-gray-light">
             <p>Seçimler</p>
-            <p>25.00₺</p>
+            <p>{values.extras.length * 5}₺</p>
           </div>
           <div className="flex items-center justify-between w-full text-red">
             <p>Toplam</p>
-            <p>110.50₺</p>
+            <p>{values.totalPrice}₺</p>
           </div>
         </div>
         <div className="w-full h-full flex items-center justify-center gap-4">

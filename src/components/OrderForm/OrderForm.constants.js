@@ -5,6 +5,8 @@ export const initialValues = {
   extras: [],
   note: "",
   quantity: 1,
+  initialPrice: 85.5,
+  totalPrice: 85.5,
 };
 
 export const SIZES = [
