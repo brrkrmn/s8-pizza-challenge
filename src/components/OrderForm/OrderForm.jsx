@@ -6,10 +6,25 @@ import {
   SIZES,
 } from "@/components/OrderForm/OrderForm.constants";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const OrderForm = () => {
   const [values, setValues] = useState(initialValues);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    const { size, thickness, name, extras } = values;
+
+    setIsDisabled(
+      size &&
+        thickness &&
+        name.length > 3 &&
+        extras.length >= 4 &&
+        extras.length <= 10
+        ? false
+        : true
+    );
+  }, [values]);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -33,6 +48,8 @@ const OrderForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isDisabled) return;
 
     try {
       const res = await axios.post("https://reqres.in/api/pizza", values);
@@ -128,6 +145,10 @@ const OrderForm = () => {
                 key={extra.id}
               >
                 <input
+                  disabled={
+                    values.extras.length >= 10 &&
+                    !values.extras.includes(extra.id)
+                  }
                   value={extra.id}
                   type="checkbox"
                   id={extra.id}
@@ -217,8 +238,9 @@ const OrderForm = () => {
             </button>
           </div>
           <button
+            disabled={isDisabled}
             type="submit"
-            className="w-full bg-yellow rounded-sm text-gray-dark !font-semibold px-6 py-3"
+            className="w-full bg-yellow disabled:bg-divider rounded-sm text-gray-dark !font-semibold px-6 py-3 cursor-pointer disabled:cursor-auto"
           >
             SİPARİŞ VER
           </button>
