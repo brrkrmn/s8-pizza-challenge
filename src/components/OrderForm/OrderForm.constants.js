@@ -1,3 +1,12 @@
+export const initialValues = {
+  name: "",
+  size: "",
+  thickness: "",
+  extras: [],
+  note: "",
+  quantity: 1,
+};
+
 export const SIZES = [
   { id: "small", title: "Küçük" },
   { id: "medium", title: "Orta" },

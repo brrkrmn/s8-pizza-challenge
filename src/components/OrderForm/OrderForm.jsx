@@ -2,43 +2,47 @@ import Header from "@/components/Header/Header";
 import {
   DOUGH_OPTIONS,
   EXTRAS,
+  initialValues,
   SIZES,
 } from "@/components/OrderForm/OrderForm.constants";
+import axios from "axios";
 import { useState } from "react";
 
 const OrderForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    size: "",
-    thickness: "",
-    extras: [],
-    note: "",
-    quantity: 1,
-  });
+  const [values, setValues] = useState(initialValues);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const { name, value, type } = e.target;
 
-  const handleExtraChange = (e) => {
-    const extra = e.target.value;
-    setFormData((prev) => {
-      const isSelected = prev.extras.includes(extra);
+    setValues((prev) => {
+      if (type === "checkbox" && name === "extras") {
+        const isSelected = prev.extras.includes(value);
+        return {
+          ...prev,
+          extras: isSelected
+            ? prev.extras.filter((id) => id !== value)
+            : [...prev.extras, value],
+        };
+      }
       return {
         ...prev,
-        extras: isSelected
-          ? prev.extras.filter((id) => id !== extra)
-          : [...prev.extras, extra],
+        [name]: value,
       };
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await axios.post("https://reqres.in/api/pizza", values);
+      if (res.status === 201) {
+        console.log("Order summary: ", res.data);
+      }
+    } catch (err) {
+      console.log("Failed to create order: ", err.message);
+    }
+    setValues(initialValues);
   };
 
   return (
@@ -80,7 +84,7 @@ const OrderForm = () => {
                   type="radio"
                   name="size"
                   value={size.id}
-                  checked={formData.size === size.id}
+                  checked={values.size === size.id}
                   onChange={handleChange}
                   className="focus:ring-red-500 flex items-center justify-center"
                 />
@@ -97,7 +101,7 @@ const OrderForm = () => {
             </label>
             <select
               name="thickness"
-              value={formData.thickness}
+              value={values.thickness}
               onChange={handleChange}
               className="border-1 !font-semibold rounded-sm"
             >
@@ -127,9 +131,9 @@ const OrderForm = () => {
                   value={extra.id}
                   type="checkbox"
                   id={extra.id}
-                  checked={formData.extras.includes(extra.id)}
-                  onChange={handleExtraChange}
-                  name="extra"
+                  checked={values.extras.includes(extra.id)}
+                  onChange={handleChange}
+                  name="extras"
                 />
                 {extra.title}
               </label>
@@ -147,7 +151,7 @@ const OrderForm = () => {
             type="text"
             id="name"
             name="name"
-            value={formData.name}
+            value={values.name}
             onChange={handleChange}
             className="border-1 w-full py-3 border-divider px-2 rounded-sm"
             placeholder="Siparişi teslim alacak kişinin adı"
@@ -164,7 +168,7 @@ const OrderForm = () => {
             placeholder="Siparişine eklemek istediğin bir not var mı?"
             id="note"
             name="note"
-            value={formData.note}
+            value={values.note}
             onChange={handleChange}
             className="border-1 w-full py-3 border-divider px-2 rounded-sm resize-y min-h-[80px]"
           />
@@ -185,9 +189,9 @@ const OrderForm = () => {
           <div className="w-fit flex items-center justify-center gap-0">
             <button
               type="button"
-              disabled={formData.quantity === 1}
+              disabled={values.quantity === 1}
               onClick={() =>
-                setFormData((prev) => ({
+                setValues((prev) => ({
                   ...prev,
                   quantity: prev.quantity - 1,
                 }))
@@ -197,12 +201,12 @@ const OrderForm = () => {
               -
             </button>
             <p className="w-12 h-12 border-1 flex items-center justify-center border-divider">
-              {formData.quantity}
+              {values.quantity}
             </p>
             <button
               type="button"
               onClick={() =>
-                setFormData((prev) => ({
+                setValues((prev) => ({
                   ...prev,
                   quantity: prev.quantity + 1,
                 }))
