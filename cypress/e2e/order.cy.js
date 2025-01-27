@@ -1,10 +1,3 @@
-import {
-  enterName,
-  selectExtras,
-  selectSize,
-  selectThickness,
-} from "../utils/orderFormHelper";
-
 describe("order form", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/order");
@@ -15,7 +8,7 @@ describe("order form", () => {
   });
 
   it("prevents selecting more than 10 extras", () => {
-    selectExtras(10);
+    cy.selectExtras(10);
 
     cy.get('[data-testid="extra-input"]').each((checkbox, index) => {
       if (index >= 10) {
@@ -26,10 +19,10 @@ describe("order form", () => {
 
   describe("with valid values", () => {
     beforeEach(() => {
-      selectSize("small");
-      selectThickness("thin");
-      enterName("example");
-      selectExtras(7);
+      cy.selectSize("small");
+      cy.selectThickness("thin");
+      cy.enterName("example");
+      cy.selectExtras(7);
     });
 
     it("allows submitting", () => {
@@ -44,39 +37,39 @@ describe("order form", () => {
 
   describe("prevents submitting", () => {
     it("without size selection", () => {
-      selectThickness();
-      enterName();
-      selectExtras();
+      cy.selectThickness();
+      cy.enterName();
+      cy.selectExtras();
       cy.get('[data-testid="submit-button"]').should("be.disabled");
     });
 
     it("without thickness selection", () => {
-      selectSize();
-      enterName();
-      selectExtras();
+      cy.selectSize();
+      cy.enterName();
+      cy.selectExtras();
       cy.get('[data-testid="submit-button"]').should("be.disabled");
     });
 
     it("with invalid name", () => {
-      selectSize();
-      selectThickness();
-      enterName("ab");
-      selectExtras();
+      cy.selectSize();
+      cy.selectThickness();
+      cy.enterName("ab");
+      cy.selectExtras();
       cy.get('[data-testid="submit-button"]').should("be.disabled");
     });
 
     it("without extra selection", () => {
-      selectSize();
-      selectThickness();
-      enterName();
+      cy.selectSize();
+      cy.selectThickness();
+      cy.enterName();
       cy.get('[data-testid="submit-button"]').should("be.disabled");
     });
 
     it("with 3 extra selection", () => {
-      selectSize();
-      selectThickness();
-      enterName();
-      selectExtras(3);
+      cy.selectSize();
+      cy.selectThickness();
+      cy.enterName();
+      cy.selectExtras(3);
       cy.get('[data-testid="submit-button"]').should("be.disabled");
     });
   });
