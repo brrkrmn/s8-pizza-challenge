@@ -1,5 +1,6 @@
 export const initialValues = {
-  name: "",
+  itemName: "Position Absolute Acı Pizza",
+  userName: "",
   size: "",
   thickness: "",
   extras: [],

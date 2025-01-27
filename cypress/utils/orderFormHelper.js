@@ -7,7 +7,7 @@ export const selectThickness = (thickness = "thin") => {
 };
 
 export const enterName = (name = "Test Name") => {
-  cy.get('[data-testid="name-input"]').type(name);
+  cy.get('[data-testid="user-name-input"]').type(name);
 };
 
 export const selectExtras = (extraCount = 4) => {

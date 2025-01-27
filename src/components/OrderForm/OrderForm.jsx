@@ -9,18 +9,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-const OrderForm = () => {
+const OrderForm = ({ setOrderDetails }) => {
   const [values, setValues] = useState(initialValues);
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { size, thickness, name, extras } = values;
+    const { size, thickness, userName, extras } = values;
 
     setIsDisabled(
       size &&
         thickness &&
-        name.length > 3 &&
+        userName.length > 3 &&
         extras.length >= 4 &&
         extras.length <= 10
         ? false
@@ -63,6 +63,7 @@ const OrderForm = () => {
       const res = await axios.post("https://reqres.in/api/pizza", values);
       if (res.status === 201) {
         console.log("Order summary: ", res.data);
+        setOrderDetails(values);
         navigate("/success");
       }
     } catch (err) {
@@ -78,9 +79,7 @@ const OrderForm = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-[532px] h-full font-barlow text-gray-dark py-10 flex flex-col items-start justify-start gap-5"
       >
-        <h2 className="text-[22px] font-semibold">
-          Position Absolute Acı Pizza
-        </h2>
+        <h2 className="text-[22px] font-semibold">{values.itemName}</h2>
         <div className="flex items-center justify-between w-full text-gray-light">
           <p className="font-bold text-[28px]">85.50₺</p>
           <div className="flex items-center justify-between gap-20 text-lg">
@@ -175,17 +174,17 @@ const OrderForm = () => {
         </fieldset>
         <fieldset className="flex flex-col items-start justify-center gap-3 w-full">
           <label
-            htmlFor="name"
+            htmlFor="userName"
             className="text-xl font-semibold text-gray-dark"
           >
             Adınız <span className="text-red">*</span>
           </label>
           <input
-            data-testid="name-input"
+            data-testid="user-name-input"
             type="text"
-            id="name"
-            name="name"
-            value={values.name}
+            id="userName"
+            name="userName"
+            value={values.userName}
             onChange={handleChange}
             className="border-1 w-full py-3 border-divider px-2 rounded-sm"
             placeholder="Siparişi teslim alacak kişinin adı"
