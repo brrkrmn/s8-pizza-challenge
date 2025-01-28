@@ -63,11 +63,11 @@ const OrderForm = ({ setOrderDetails }) => {
       const res = await axios.post("https://reqres.in/api/pizza", values);
       if (res.status === 201) {
         console.log("Order summary: ", res.data);
-        setOrderDetails(values);
+        setOrderDetails(res.data);
         navigate("/success");
       }
     } catch (err) {
-      console.log("Failed to create order: ", err.message);
+      alert(`Failed to create order: ${err.message}`);
     }
     setValues(initialValues);
   };
@@ -77,7 +77,7 @@ const OrderForm = ({ setOrderDetails }) => {
       <Header />
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-[532px] h-full font-barlow text-gray-dark py-10 flex flex-col items-start justify-start gap-5"
+        className="w-full max-w-[532px] h-full font-barlow text-gray-medium py-10 flex flex-col items-start justify-start gap-5"
       >
         <h2 className="text-[22px] font-semibold">{values.itemName}</h2>
         <div className="flex items-center justify-between w-full text-gray-light">
@@ -97,7 +97,7 @@ const OrderForm = ({ setOrderDetails }) => {
         </p>
         <div className="w-full flex items-center justify-between !mt-6">
           <fieldset className="flex flex-col items-start justify-center gap-3">
-            <legend className="text-xl font-semibold text-gray-dark !mb-3">
+            <legend className="text-xl font-semibold text-gray-medium !mb-3">
               Boyut Seç <span className="text-red">*</span>
             </legend>
             {SIZES.map((size) => (
@@ -121,7 +121,7 @@ const OrderForm = ({ setOrderDetails }) => {
           <fieldset className="flex flex-col !mr-40 items-start justify-start h-full gap-3">
             <label
               htmlFor="thickness"
-              className="text-xl font-semibold text-gray-dark"
+              className="text-xl font-semibold text-gray-medium"
             >
               Hamur Seç <span className="text-red">*</span>
             </label>
@@ -142,7 +142,7 @@ const OrderForm = ({ setOrderDetails }) => {
           </fieldset>
         </div>
         <fieldset className="!mt-6 flex flex-col items-start justify-center gap-3">
-          <h3 className="text-xl font-semibold text-gray-dark">
+          <h3 className="text-xl font-semibold text-gray-medium">
             Ek Malzemeler
           </h3>
           <p className="text-gray-light font-[400]">
@@ -175,7 +175,7 @@ const OrderForm = ({ setOrderDetails }) => {
         <fieldset className="flex flex-col items-start justify-center gap-3 w-full">
           <label
             htmlFor="userName"
-            className="text-xl font-semibold text-gray-dark"
+            className="text-xl font-semibold text-gray-medium"
           >
             Adınız <span className="text-red">*</span>
           </label>
@@ -193,7 +193,7 @@ const OrderForm = ({ setOrderDetails }) => {
         <fieldset className="flex flex-col items-start justify-center gap-3 w-full">
           <label
             htmlFor="note"
-            className="text-xl font-semibold text-gray-dark"
+            className="text-xl font-semibold text-gray-medium"
           >
             Sipariş notu
           </label>
@@ -208,7 +208,7 @@ const OrderForm = ({ setOrderDetails }) => {
         </fieldset>
         <hr className="border-t-1 border-gray-light opacity-50 w-full !my-4"></hr>
         <div className="border-1 border-divider rounded-sm w-full p-10 font-barlow flex flex-col items-start justify-center gap-3 font-semibold">
-          <h4 className="text-xl text-gray-dark">Sipariş Toplamı</h4>
+          <h4 className="text-xl text-gray-medium">Sipariş Toplamı</h4>
           <div className="flex items-center justify-between w-full text-gray-light">
             <p>Seçimler</p>
             <p>{values.extras.length * 5}₺</p>
@@ -229,7 +229,7 @@ const OrderForm = ({ setOrderDetails }) => {
                   quantity: prev.quantity - 1,
                 }))
               }
-              className="w-12 h-12 bg-yellow text-gray-dark !font-semibold rounded-l-sm disabled:bg-divider disabled:cursor-auto cursor-pointer"
+              className="w-12 h-12 bg-yellow text-gray-medium !font-semibold rounded-l-sm disabled:bg-divider disabled:cursor-auto cursor-pointer"
             >
               -
             </button>
@@ -244,7 +244,7 @@ const OrderForm = ({ setOrderDetails }) => {
                   quantity: prev.quantity + 1,
                 }))
               }
-              className="bg-yellow text-gray-dark !font-semibold py-3 rounded-r-sm w-12 h-12 disabled:bg-divider disabled:cursor-auto cursor-pointer"
+              className="bg-yellow text-gray-medium !font-semibold py-3 rounded-r-sm w-12 h-12 disabled:bg-divider disabled:cursor-auto cursor-pointer"
             >
               +
             </button>
@@ -253,7 +253,7 @@ const OrderForm = ({ setOrderDetails }) => {
             data-testid="submit-button"
             disabled={isDisabled}
             type="submit"
-            className="w-full bg-yellow disabled:bg-divider rounded-sm text-gray-dark !font-semibold px-6 py-3 cursor-pointer disabled:cursor-auto"
+            className="w-full bg-yellow disabled:bg-divider rounded-sm text-gray-medium !font-semibold px-6 py-3 cursor-pointer disabled:cursor-auto"
           >
             SİPARİŞ VER
           </button>

@@ -14,7 +14,7 @@ const Home = () => {
       </h1>
       <Link
         to="/order"
-        className="bg-yellow text-gray-dark font-barlow font-semibold text-xl rounded-4xl py-3 px-14"
+        className="bg-yellow text-gray-medium font-barlow font-semibold text-xl rounded-4xl py-3 px-14"
       >
         ACIKTIM
       </Link>

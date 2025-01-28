@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer";
 import Home from "@/components/Home/Home";
 import OrderForm from "@/components/OrderForm/OrderForm";
 import Success from "@/components/Success/Success";
@@ -8,9 +9,9 @@ const App = () => {
   const [orderDetails, setOrderDetails] = useState();
 
   return (
-    <main className="w-screen min-h-screen flex flex-col items-center justify-center">
+    <main className="w-screen min-h-screen flex items-center justify-center">
       <Router>
-        <body className="w-full h-full flex items-start justify-center">
+        <body className="w-full h-full flex flex-col items-start justify-center">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
@@ -22,6 +23,7 @@ const App = () => {
               element={<Success orderDetails={orderDetails} />}
             />
           </Routes>
+          <Footer />
         </body>
       </Router>
     </main>
