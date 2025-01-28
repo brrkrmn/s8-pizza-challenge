@@ -1,3 +1,4 @@
+import MenuItems from "@/components/Home/components/MenuItems/MenuItems";
 import Nav from "@/components/Home/components/Nav/Nav";
 import { Link } from "react-router";
 
@@ -22,7 +23,18 @@ const Home = () => {
         </Link>
       </section>
       <Nav background={true} />
-      <Nav background={false} />
+      <div className="bg-beige w-full py-14 flex items-center justify-center px-4">
+        <div className="w-full max-w-full laptop:max-w-[800px] flex flex-col items-center justify-start">
+          <p className="font-satisfy text-red text-2xl text-center">
+            en çok paketlenen menüler
+          </p>
+          <p className="font-barlow text-3xl font-semibold text-center">
+            Acıktıran Kodlara Doyuran Lezzetler
+          </p>
+          <Nav background={false} />
+          <MenuItems />
+        </div>
+      </div>
     </div>
   );
 };

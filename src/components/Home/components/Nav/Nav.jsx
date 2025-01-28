@@ -6,7 +6,7 @@ const Nav = ({ background = false }) => {
     <nav
       className={`${
         background ? "bg-white" : "bg-beige"
-      } w-full flex items-center justify-center gap-5 px-4 py-10 flex-wrap`}
+      } w-full flex items-center justify-center gap-4 py-10 flex-wrap`}
     >
       {navLinks.map((link) => (
         <Link
