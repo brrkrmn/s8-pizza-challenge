@@ -41,7 +41,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="border-t-1 w-full border-gray-medium"></hr>
-      <div className=" flex items-center justify-between">
+      <div className="w-full px-10 tablet:px-40 flex items-center justify-between">
         <p className="text-white">
           © {new Date().getFullYear()} Teknolojik Yemekler
         </p>
