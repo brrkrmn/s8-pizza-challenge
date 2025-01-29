@@ -36,7 +36,7 @@ const Order = ({ setOrderDetails }) => {
           {absolutePizza.itemDescription}
         </p>
       </div>
-      <OrderForm setOrderDetails={setOrderDetails} />;
+      <OrderForm setOrderDetails={setOrderDetails} />
     </div>
   );
 };
