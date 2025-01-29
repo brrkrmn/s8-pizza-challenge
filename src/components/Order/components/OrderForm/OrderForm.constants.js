@@ -1,19 +1,7 @@
-export const initialValues = {
-  itemName: "Position Absolute Acı Pizza",
-  userName: "",
-  size: "",
-  thickness: "",
-  extras: [],
-  note: "",
-  quantity: 1,
-  initialPrice: 85.5,
-  totalPrice: 85.5,
-};
-
 export const SIZES = [
-  { id: "small", title: "Küçük" },
-  { id: "medium", title: "Orta" },
-  { id: "large", title: "Büyük" },
+  { id: "small", title: "S" },
+  { id: "medium", title: "M" },
+  { id: "large", title: "L" },
 ];
 
 export const DOUGH_OPTIONS = [

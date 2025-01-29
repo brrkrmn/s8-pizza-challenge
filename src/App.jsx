@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import Home from "@/components/Home/Home";
-import OrderForm from "@/components/OrderForm/OrderForm";
+import Order from "@/components/Order/Order";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Success from "@/components/Success/Success";
 import { useState } from "react";
@@ -20,7 +20,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route
               path="/order"
-              element={<OrderForm setOrderDetails={setOrderDetails} />}
+              element={<Order setOrderDetails={setOrderDetails} />}
             />
             <Route
               path="/success"

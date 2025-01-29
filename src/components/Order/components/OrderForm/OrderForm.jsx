@@ -1,15 +1,15 @@
 import {
   DOUGH_OPTIONS,
   EXTRAS,
-  initialValues,
   SIZES,
-} from "@/components/OrderForm/OrderForm.constants";
+} from "@/components/Order/components/OrderForm/OrderForm.constants";
+import { absolutePizza } from "@/menu.constants";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const OrderForm = ({ setOrderDetails }) => {
-  const [values, setValues] = useState(initialValues);
+  const [values, setValues] = useState(absolutePizza);
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
 
@@ -68,55 +68,42 @@ const OrderForm = ({ setOrderDetails }) => {
     } catch (err) {
       alert(`Failed to create order: ${err.message}`);
     }
-    setValues(initialValues);
+    setValues(absolutePizza);
   };
 
   return (
-    <section className="w-full h-full flex flex-col items-center justify-start">
+    <div className="bg-white w-screen h-full flex flex-col items-center justify-start">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-[532px] h-full font-barlow text-gray-medium py-10 flex flex-col items-start justify-start gap-5"
+        className="w-full font-barlow max-w-[532px] h-full text-gray-medium py-10 flex flex-col items-start justify-start gap-5"
       >
-        <h2 className="text-[22px] font-semibold">{values.itemName}</h2>
-        <div className="flex items-center justify-between w-full text-gray-light">
-          <p className="font-bold text-[28px]">85.50₺</p>
-          <div className="flex items-center justify-between gap-20 text-lg">
-            <p>4.9</p>
-            <p>(200)</p>
-          </div>
-        </div>
-        <p className="text-gray-light font-[400] leading-relaxed">
-          Frontent Dev olarak hala position:absolute kullanıyorsan bu çok acı
-          pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
-          diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
-          ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak,
-          düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli
-          lezzetli bir yemektir. . Küçük bir pizzaya bazen pizzetta denir.
-        </p>
-        <div className="w-full flex items-center justify-between !mt-6">
-          <fieldset className="flex flex-col items-start justify-center gap-3">
-            <legend className="text-xl font-semibold text-gray-medium !mb-3">
+        <div className="w-full flex items-start justify-between gap-10">
+          <fieldset className="flex flex-col items-start justify-start gap-4">
+            <legend className="text-xl font-semibold text-gray-medium">
               Boyut Seç <span className="text-red">*</span>
             </legend>
-            {SIZES.map((size) => (
-              <label
-                key={size.id}
-                className="flex items-center justify-start gap-2 text-gray-light text-base"
-              >
-                <input
-                  data-testid="size-input"
-                  type="radio"
-                  name="size"
-                  value={size.id}
-                  checked={values.size === size.id}
-                  onChange={handleChange}
-                  className="focus:ring-red-500 flex items-center justify-center"
-                />
-                {size.title}
-              </label>
-            ))}
+            <div className="flex items-center justify-start gap-4 !mt-4">
+              {SIZES.map((size) => (
+                <label
+                  key={size.id}
+                  className={`flex items-center justify-center w-14 h-14 rounded-full cursor-pointer transition-all font-semibold text-gray-light
+                  ${values.size === size.id ? "bg-yellow-light" : "bg-beige"}`}
+                >
+                  <input
+                    data-testid="size-input"
+                    type="radio"
+                    name="size"
+                    value={size.id}
+                    checked={values.size === size.id}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  {size.title}
+                </label>
+              ))}
+            </div>
           </fieldset>
-          <fieldset className="flex flex-col !mr-40 items-start justify-start h-full gap-3">
+          <fieldset className="flex flex-col items-start justify-start h-full w-full">
             <label
               htmlFor="thickness"
               className="text-xl font-semibold text-gray-medium"
@@ -128,9 +115,11 @@ const OrderForm = ({ setOrderDetails }) => {
               name="thickness"
               value={values.thickness}
               onChange={handleChange}
-              className="border-1 !font-semibold rounded-sm"
+              className="border-r-20 border-transparent bg-beige h-14 w-full px-4 text-gray-light font-semibold rounded-sm !mt-4 focus:outline-1 outline-yellow"
             >
-              <option value="">Hamur Kalınlığı</option>
+              <option value="" disabled>
+                -- Hamur Kalınlığı Seç --
+              </option>
               {DOUGH_OPTIONS.map((dough) => (
                 <option key={dough.id} value={dough.id}>
                   {dough.title}
@@ -149,7 +138,12 @@ const OrderForm = ({ setOrderDetails }) => {
           <div className="flex items-center justify-start flex-wrap gap-4 py-10">
             {EXTRAS.map((extra) => (
               <label
-                className="w-[30%] flex items-center justify-start gap-3 text-gray-light font-bold"
+                className={`${
+                  values.extras.length >= 10 &&
+                  !values.extras.includes(extra.id)
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                } w-[30%] flex items-center justify-start gap-3 text-gray-light font-bold`}
                 key={extra.id}
               >
                 <input
@@ -164,7 +158,32 @@ const OrderForm = ({ setOrderDetails }) => {
                   checked={values.extras.includes(extra.id)}
                   onChange={handleChange}
                   name="extras"
+                  className="hidden"
                 />
+                <div
+                  className={`w-10 h-10 flex items-center justify-center rounded-md transition-all
+                  ${
+                    values.extras.includes(extra.id)
+                      ? "bg-yellow text-gray-light"
+                      : "bg-beige text-beige"
+                  }
+                `}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-black"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
                 {extra.title}
               </label>
             ))}
@@ -205,7 +224,7 @@ const OrderForm = ({ setOrderDetails }) => {
           />
         </fieldset>
         <hr className="border-t-1 border-gray-light opacity-50 w-full !my-4"></hr>
-        <div className="border-1 border-divider rounded-sm w-full p-10 font-barlow flex flex-col items-start justify-center gap-3 font-semibold">
+        <div className="border-1 border-divider rounded-sm w-full p-10 flex flex-col items-start justify-center gap-3 font-semibold">
           <h4 className="text-xl text-gray-medium">Sipariş Toplamı</h4>
           <div className="flex items-center justify-between w-full text-gray-light">
             <p>Seçimler</p>
@@ -257,7 +276,7 @@ const OrderForm = ({ setOrderDetails }) => {
           </button>
         </div>
       </form>
-    </section>
+    </div>
   );
 };
 

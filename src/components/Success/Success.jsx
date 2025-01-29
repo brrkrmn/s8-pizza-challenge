@@ -2,7 +2,7 @@ import {
   DOUGH_OPTIONS,
   EXTRAS,
   SIZES,
-} from "@/components/OrderForm/OrderForm.constants";
+} from "@/components/Order/components/OrderForm/OrderForm.constants";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 

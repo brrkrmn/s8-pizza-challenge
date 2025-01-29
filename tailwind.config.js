@@ -14,7 +14,10 @@ module.exports = {
     },
     colors: {
       transparent: "transparent",
-      yellow: "#FDC913",
+      yellow: {
+        DEFAULT: "#FDC913",
+        light: "#FFEECC",
+      },
       red: "#CE2829",
       beige: "#FAF7F2",
       white: "#FFFFFF",
