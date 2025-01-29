@@ -1,4 +1,3 @@
-import Header from "@/components/Header/Header";
 import {
   DOUGH_OPTIONS,
   EXTRAS,
@@ -74,7 +73,6 @@ const OrderForm = ({ setOrderDetails }) => {
 
   return (
     <section className="w-full h-full flex flex-col items-center justify-start">
-      <Header />
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-[532px] h-full font-barlow text-gray-medium py-10 flex flex-col items-start justify-start gap-5"

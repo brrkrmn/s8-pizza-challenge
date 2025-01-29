@@ -18,52 +18,47 @@ const Success = ({ orderDetails }) => {
   const { itemName, size, thickness, extras, totalPrice } = orderDetails;
 
   return (
-    <section className="bg-red w-full h-screen px-4 py-7 flex flex-col items-center justify-start gap-4">
-      <div className="w-full pt-20 tablet:pt-30 flex items-end justify-center">
-        <img
-          src="/images/iteration-1-images/logo.svg"
-          alt="Teknolojik Yemekler Logo"
-        />
+    <section className="bg-red w-full px-4 pt-7 pb-20 flex flex-col items-center justify-start gap-10 text-white">
+      <div className="flex flex-col items-center justify-center gap-1 border-b-1 border-white pb-8">
+        <p className="text-yellow font-satisfy text-3xl">lezzetin yolda</p>
+        <h1 className="flex items-center justify-center leading-16 tablet:leading-24 text-center font-roboto text-6xl tablet:text-7xl font-light">
+          SİPARİŞ ALINDI
+        </h1>
       </div>
-      <p className="text-yellow font-satisfy text-4xl">lezzetin yolda</p>
-      <h1 className="flex flex-col items-center justify-center leading-[92px] text-center font-roboto text-[60px] tablet:text-[86px] text-white font-light">
-        SİPARİŞ ALINDI
-      </h1>
-      <hr className="border-t-1 border-white w-full"></hr>
-      <h3 className="text-2xl font-barlow text-white font-semibold">
-        {itemName}
-      </h3>
-      <div className="flex flex-col items-start justify-center gap-4 text-white">
-        <p>
-          Boyut:{" "}
-          <span className="font-semibold">
-            {SIZES.find((s) => s.id === size).title}
-          </span>
-        </p>
-        <p>
-          Hamur:{" "}
-          <span className="font-semibold">
-            {DOUGH_OPTIONS.find((d) => d.id === thickness).title}
-          </span>
-        </p>
-        <p className="flex items-center justify-start gap-1">
-          Ek Malzemeler:{" "}
-          {extras.map((extra, index) => (
-            <span key={index} className="font-semibold">
-              {EXTRAS.find((e) => e.id === extra).title}
-              {index !== extras.length - 1 && ","}
+      <div className="flex flex-col items-center justify-center gap-4">
+        <h3 className="text-2xl font-barlow font-semibold">{itemName}</h3>
+        <div className="flex flex-col items-start justify-center gap-4 w-full max-w-64">
+          <p>
+            Boyut:{" "}
+            <span className="font-semibold">
+              {SIZES.find((s) => s.id === size).title}
             </span>
-          ))}
-        </p>
-        <div className="p-10 w-full flex items-start jusify-center gap-4 flex-col border-1 border-white rounded-sm">
-          <p className="text-xl font-semibold">Sipariş Toplamı</p>
-          <p className="text-lg font-semibold flex items-center justify-between w-full">
-            Seçimler <span>{extras.length * 5}₺</span>
           </p>
-          <p className="text-lg font-semibold flex items-center justify-between w-full">
-            Toplam <span>{totalPrice}₺</span>
+          <p>
+            Hamur:{" "}
+            <span className="font-semibold">
+              {DOUGH_OPTIONS.find((d) => d.id === thickness).title}
+            </span>
           </p>
+          <div className="flex items-start justify-start gap-1 flex-wrap">
+            <p className="min-w-fit">Ek Malzemeler:</p>
+            {extras.map((extra, index) => (
+              <p key={index} className="font-semibold ">
+                {EXTRAS.find((e) => e.id === extra).title}
+                {index !== extras.length - 1 && ","}
+              </p>
+            ))}
+          </div>
         </div>
+      </div>
+      <div className="p-10 w-full max-w-80 flex items-start jusify-center gap-4 flex-col border-1 border-white rounded-sm">
+        <p className="text-xl font-semibold">Sipariş Toplamı</p>
+        <p className="text-lg font-semibold flex items-center justify-between w-full">
+          Seçimler <span>{extras.length * 5}₺</span>
+        </p>
+        <p className="text-lg font-semibold flex items-center justify-between w-full">
+          Toplam <span>{totalPrice}₺</span>
+        </p>
       </div>
     </section>
   );
