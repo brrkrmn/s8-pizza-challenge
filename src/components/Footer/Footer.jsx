@@ -60,11 +60,14 @@ const Footer = () => {
           </h5>
           <ul className="flex flex-wrap items-center justify-start gap-4 shrink-0 max-w-70">
             {instagramItemsSrc.map((itemSrc, index) => (
-              <Link aria-label={`link to instagram post ${index + 1}`} to="">
+              <Link
+                key={index}
+                aria-label={`link to instagram post ${index + 1}`}
+                to=""
+              >
                 <img
                   alt={`Instagram post number ${index + 1}`}
                   src={itemSrc}
-                  key={index}
                   className="w-20"
                 />
               </Link>
