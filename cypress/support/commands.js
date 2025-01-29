@@ -17,3 +17,13 @@ Cypress.Commands.add("selectExtras", (extraCount = 4) => {
     }
   });
 });
+
+Cypress.Commands.add("submitForm", () => {
+  cy.visit("http://localhost:5173/order");
+  cy.selectSize();
+  cy.selectThickness();
+  cy.enterName();
+  cy.selectExtras();
+  cy.get('[data-testid="submit-button"]').click();
+  cy.wait(2000);
+});

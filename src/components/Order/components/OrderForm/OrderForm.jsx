@@ -19,7 +19,7 @@ const OrderForm = ({ setOrderDetails }) => {
     setIsDisabled(
       size &&
         thickness &&
-        userName.length > 3 &&
+        userName.length >= 3 &&
         extras.length >= 4 &&
         extras.length <= 10
         ? false
@@ -110,6 +110,7 @@ const OrderForm = ({ setOrderDetails }) => {
               ))}
             </div>
             <p
+              data-testid="size-error"
               id="size-error"
               aria-live="polite"
               className={`text-red transition ${
@@ -147,6 +148,7 @@ const OrderForm = ({ setOrderDetails }) => {
               ))}
             </select>
             <p
+              data-testid="thickness-error"
               aria-live="polite"
               className={`text-red transition ${
                 !values.thickness ? "opacity-100" : "opacity-0"
@@ -225,6 +227,7 @@ const OrderForm = ({ setOrderDetails }) => {
             ))}
           </div>
           <p
+            data-testid="extras-error"
             id="extras-error"
             aria-live="polite"
             className={`text-red transition ${
@@ -261,12 +264,13 @@ const OrderForm = ({ setOrderDetails }) => {
             placeholder="Siparişi teslim alacak kişinin adı"
           />
           <p
+            data-testid="username-error"
             aria-live="polite"
             className={`text-red transition ${
               values.userName.length < 3 ? "opacity-100" : "opacity-0"
             }`}
           >
-            En az 3 karakter girin"
+            En az 3 karakter girin
           </p>
         </fieldset>
         <fieldset

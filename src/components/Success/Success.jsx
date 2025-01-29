@@ -48,7 +48,7 @@ const Success = ({ orderDetails }) => {
           <div className="flex items-start justify-start gap-1 flex-wrap">
             <p className="min-w-fit">Ek Malzemeler:</p>
             {extras.map((extra, index) => (
-              <p key={index} className="font-semibold ">
+              <p key={index} className="font-semibold">
                 {EXTRAS.find((e) => e.id === extra).title}
                 {index !== extras.length - 1 && ","}
               </p>

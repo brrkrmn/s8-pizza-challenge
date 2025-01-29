@@ -31,7 +31,7 @@ describe("order form", () => {
 
     it("redirects user on successful submit", () => {
       cy.get('[data-testid="submit-button"]').click();
-      cy.url().should("include", "/success");
+      cy.location("pathname").should("eq", "/success");
     });
   });
 
