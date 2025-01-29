@@ -18,8 +18,8 @@ const Success = ({ orderDetails }) => {
   const { itemName, size, thickness, extras, totalPrice } = orderDetails;
 
   return (
-    <section className="bg-red w-full px-4 pt-7 pb-20 flex flex-col items-center justify-start gap-10 text-white">
-      <div className="flex flex-col items-center justify-center gap-1 border-b-1 border-white pb-8">
+    <section className="bg-red min-h-screen w-full px-4 pt-0 mobile:pt-7 pb-20 flex flex-col items-center justify-start gap-10 text-white">
+      <div className="flex flex-col items-center justify-center gap-1 border-b-1 border-white pb-10 !mt-10">
         <p className="text-yellow font-satisfy text-3xl">lezzetin yolda</p>
         <h1 className="flex items-center justify-center leading-16 tablet:leading-24 text-center font-roboto text-6xl tablet:text-7xl font-light">
           SİPARİŞ ALINDI

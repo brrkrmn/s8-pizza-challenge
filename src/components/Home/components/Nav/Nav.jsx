@@ -7,7 +7,7 @@ const Nav = () => {
       {navLinks.map((link) => (
         <Link
           to=""
-          className={` justify-start
+          className={`hover:bg-gray-medium hover:text-white transition justify-start
            bg-white tablet:w-fit mobile:w-[30%] w-[40%] flex items-center gap-2 text-xs mobile:text-sm text-gray-medium font-semibold font-barlow rounded-full py-2 px-3`}
         >
           <img src={link.iconSrc} className="w-6 mobile:w-8 aspect-square" />

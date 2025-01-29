@@ -6,8 +6,8 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="w-full h-full bg-gray-dark flex flex-col items-center justify-center gap-10 py-20 text-white text-sm">
-      <div className="max-w-[800px] w-full flex flex-col laptop:flex-row items-start justify-between flex-wrap">
+    <footer className="w-full h-full bg-gray-dark flex flex-col items-center justify-center gap-10 py-20 text-white text-sm tablet:px-0 px-4">
+      <div className="max-w-[800px] w-full flex flex-row items-start justify-start gap-4 tablet:gap-0 tablet:justify-between flex-wrap">
         <div className="flex flex-col items-start justify-center gap-8">
           <img
             className="w-40"
@@ -31,9 +31,13 @@ const Footer = () => {
             Hot Menu
           </p>
           {menuItems.map((item, index) => (
-            <p className="font-light text-sm" key={index}>
+            <Link
+              to=""
+              className="font-light text-sm transition hover:text-yellow"
+              key={index}
+            >
               {item}
-            </p>
+            </Link>
           ))}
         </div>
         <div className="flex flex-col items-start justify-start gap-4 w-fit">
@@ -42,7 +46,9 @@ const Footer = () => {
           </p>
           <div className="flex flex-wrap items-center justify-start gap-4 shrink-0 max-w-70">
             {instagramItemsSrc.map((itemSrc, index) => (
-              <img src={itemSrc} key={index} className="w-20" />
+              <Link to="">
+                <img src={itemSrc} key={index} className="w-20" />
+              </Link>
             ))}
           </div>
         </div>
@@ -52,7 +58,10 @@ const Footer = () => {
         <p className="text-white">
           © {new Date().getFullYear()} Teknolojik Yemekler
         </p>
-        <Link to="">
+        <Link
+          to=""
+          className="hover:border-yellow transition border-1 border-transparent p-2 rounded-lg"
+        >
           <img src="/images/iteration-2-images/footer/twitter.svg" />
         </Link>
       </div>

@@ -72,12 +72,12 @@ const OrderForm = ({ setOrderDetails }) => {
   };
 
   return (
-    <div className="bg-white w-screen h-full flex flex-col items-center justify-start">
+    <div className="bg-white w-screen h-full flex flex-col items-center justify-start px-4">
       <form
         onSubmit={handleSubmit}
         className="w-full font-barlow max-w-[532px] h-full text-gray-medium py-10 flex flex-col items-start justify-start gap-5"
       >
-        <div className="w-full flex items-start justify-between gap-10">
+        <div className="w-full flex items-start justify-between gap-10 flex-col mobile:flex-row">
           <fieldset className="flex flex-col items-start justify-start">
             <legend className="text-xl font-semibold text-gray-medium">
               Boyut Seç <span className="text-red">*</span>
@@ -86,7 +86,7 @@ const OrderForm = ({ setOrderDetails }) => {
               {SIZES.map((size) => (
                 <label
                   key={size.id}
-                  className={`flex items-center justify-center w-14 h-14 rounded-full cursor-pointer transition-all font-semibold text-gray-light
+                  className={`flex items-center justify-center w-14 h-14 rounded-full cursor-pointer transition-all hover:border-yellow border-1 border-transparent font-semibold text-gray-light
                   ${values.size === size.id ? "bg-yellow-light" : "bg-beige"}`}
                 >
                   <input
@@ -122,7 +122,7 @@ const OrderForm = ({ setOrderDetails }) => {
               name="thickness"
               value={values.thickness}
               onChange={handleChange}
-              className="border-r-20 border-transparent bg-beige h-14 w-full px-4 text-gray-light font-semibold rounded-sm !mt-4 focus:outline-1 outline-yellow"
+              className="border-r-20 cursor-pointer border-transparent bg-beige h-14 w-full px-4 text-gray-light font-semibold rounded-sm !mt-4 focus:outline-1 outline-yellow"
             >
               <option value="" disabled>
                 -- Hamur Kalınlığı Seç --
@@ -149,7 +149,7 @@ const OrderForm = ({ setOrderDetails }) => {
           <p className="text-gray-light font-[400]">
             En fazla 10 malzeme seçebilirsiniz. 5₺
           </p>
-          <div className="flex items-center justify-start flex-wrap gap-4 pt-3">
+          <div className="flex items-center justify-start flex-wrap gap-4 pt-3 min-w-[300px]">
             {EXTRAS.map((extra) => (
               <label
                 className={`${
@@ -157,7 +157,7 @@ const OrderForm = ({ setOrderDetails }) => {
                   !values.extras.includes(extra.id)
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
-                } w-[30%] flex items-center justify-start gap-3 text-gray-light font-bold`}
+                } w-[40%] mobile:w-[30%] group flex items-center justify-start gap-3 text-gray-light font-bold`}
                 key={extra.id}
               >
                 <input
@@ -175,7 +175,7 @@ const OrderForm = ({ setOrderDetails }) => {
                   className="hidden"
                 />
                 <div
-                  className={`w-10 h-10 flex items-center justify-center rounded-md transition-all
+                  className={`min-w-10 min-h-10 flex items-center justify-center rounded-md group-hover:border-yellow border-1 border-transparent transition-all
                   ${
                     values.extras.includes(extra.id)
                       ? "bg-yellow text-gray-light"
@@ -229,7 +229,7 @@ const OrderForm = ({ setOrderDetails }) => {
             name="userName"
             value={values.userName}
             onChange={handleChange}
-            className="bg-beige focus:outline-1 outline-yellow w-full py-3 border-divider px-2 rounded-sm"
+            className="bg-beige transition hover:border-yellow border-1 border-transparent focus:outline-1 outline-yellow w-full py-3 px-2 rounded-sm"
             placeholder="Siparişi teslim alacak kişinin adı"
           />
           <p
@@ -253,12 +253,12 @@ const OrderForm = ({ setOrderDetails }) => {
             name="note"
             value={values.note}
             onChange={handleChange}
-            className="bg-beige focus:outline-1 outline-yellow w-full py-3 border-divider px-2 rounded-sm resize-y min-h-[80px]"
+            className="bg-beige transition hover:border-yellow border-1 border-transparent focus:outline-1 outline-yellow w-full py-3 border-divider px-2 rounded-sm resize-y min-h-[80px]"
           />
         </fieldset>
         <hr className="border-t-1 border-gray-light opacity-50 w-full !my-4"></hr>
-        <div className="w-full flex items-start justify-start gap-2">
-          <div className="w-fit flex items-center justify-center gap-0">
+        <div className="w-full flex items-start justify-start flex-col mobile:flex-row gap-2">
+          <div className="w-full mobile:w-fit flex items-center justify-center gap-0">
             <button
               type="button"
               disabled={values.quantity === 1}
