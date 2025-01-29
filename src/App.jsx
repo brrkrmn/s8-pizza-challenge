@@ -14,7 +14,7 @@ const App = () => {
     <main className="w-screen min-h-screen flex items-center justify-center">
       <Router>
         <ScrollToTop />
-        <body className="w-full h-full flex flex-col items-start justify-center">
+        <div className="w-full h-full flex flex-col items-start justify-center">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -28,7 +28,7 @@ const App = () => {
             />
           </Routes>
           <Footer />
-        </body>
+        </div>
       </Router>
     </main>
   );

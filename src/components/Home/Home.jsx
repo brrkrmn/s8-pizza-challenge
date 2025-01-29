@@ -28,7 +28,7 @@ const Home = () => {
       <div className="w-full py-4 bg-white">
         <Nav />
       </div>
-      <div className="bg-beige w-full py-14 flex items-center justify-center px-4">
+      <section className="bg-beige w-full py-14 flex items-center justify-center px-4">
         <div className="w-full max-w-full laptop:max-w-[800px] flex flex-col items-center justify-start gap-10">
           <CTASection />
           <div className="flex flex-col w-full items-center justify-center gap-2">
@@ -43,7 +43,7 @@ const Home = () => {
           <Nav />
           <MenuItems />
         </div>
-      </div>
+      </section>
     </div>
   );
 };

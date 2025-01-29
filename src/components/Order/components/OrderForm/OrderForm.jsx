@@ -72,21 +72,27 @@ const OrderForm = ({ setOrderDetails }) => {
   };
 
   return (
-    <div className="bg-white w-screen h-full flex flex-col items-center justify-start px-4">
+    <section className="bg-white w-screen h-full flex flex-col items-center justify-start px-4">
       <form
         onSubmit={handleSubmit}
         className="w-full font-barlow max-w-[532px] h-full text-gray-medium py-10 flex flex-col items-start justify-start gap-5"
       >
         <div className="w-full flex items-start justify-between gap-10 flex-col mobile:flex-row">
-          <fieldset className="flex flex-col items-start justify-start">
-            <legend className="text-xl font-semibold text-gray-medium">
+          <fieldset
+            aria-labelledby="size-legend"
+            className="flex flex-col items-start justify-start"
+          >
+            <legend
+              id="size-legend"
+              className="text-xl font-semibold text-gray-medium"
+            >
               Boyut Seç <span className="text-red">*</span>
             </legend>
             <div className="flex items-center justify-start gap-4 !mt-4">
               {SIZES.map((size) => (
                 <label
                   key={size.id}
-                  className={`flex items-center justify-center w-14 h-14 rounded-full cursor-pointer transition-all hover:border-yellow border-1 border-transparent font-semibold text-gray-light
+                  className={`flex items-center justify-center w-14 h-14 rounded-full cursor-pointer transition-all hover:border-yellow border-1 border-transparent font-semibold text-gray-light focus-within:ring-2 focus-within:ring-yellow focus-within:ring-offset-2
                   ${values.size === size.id ? "bg-yellow-light" : "bg-beige"}`}
                 >
                   <input
@@ -96,13 +102,16 @@ const OrderForm = ({ setOrderDetails }) => {
                     value={size.id}
                     checked={values.size === size.id}
                     onChange={handleChange}
-                    className="hidden"
+                    aria-describedby="size-error"
+                    className="opacity-0 absolute"
                   />
                   {size.title}
                 </label>
               ))}
             </div>
             <p
+              id="size-error"
+              aria-live="polite"
               className={`text-red transition ${
                 !values.size ? "opacity-100" : "opacity-0"
               }`}
@@ -110,8 +119,12 @@ const OrderForm = ({ setOrderDetails }) => {
               Boyut seçin
             </p>
           </fieldset>
-          <fieldset className="flex flex-col items-start justify-start h-full w-full">
+          <fieldset
+            aria-labelledby="thickness-label"
+            className="flex flex-col items-start justify-start h-full w-full"
+          >
             <label
+              id="thickness-label"
               htmlFor="thickness"
               className="text-xl font-semibold text-gray-medium"
             >
@@ -128,12 +141,13 @@ const OrderForm = ({ setOrderDetails }) => {
                 -- Hamur Kalınlığı Seç --
               </option>
               {DOUGH_OPTIONS.map((dough) => (
-                <option key={dough.id} value={dough.id}>
+                <option className="text-xl" key={dough.id} value={dough.id}>
                   {dough.title}
                 </option>
               ))}
             </select>
             <p
+              aria-live="polite"
               className={`text-red transition ${
                 !values.thickness ? "opacity-100" : "opacity-0"
               }`}
@@ -142,22 +156,29 @@ const OrderForm = ({ setOrderDetails }) => {
             </p>
           </fieldset>
         </div>
-        <fieldset className="flex flex-col items-start justify-center gap-3 py-6">
-          <h3 className="text-xl font-semibold text-gray-medium">
+        <fieldset
+          aria-labelledby="extras-legend"
+          className="flex flex-col items-start justify-center gap-3 py-6"
+        >
+          <legend
+            id="extras-legend"
+            className="text-xl font-semibold text-gray-medium"
+          >
             Ek Malzemeler
-          </h3>
+          </legend>
           <p className="text-gray-light font-[400]">
             En fazla 10 malzeme seçebilirsiniz. 5₺
           </p>
           <div className="flex items-center justify-start flex-wrap gap-4 pt-3 min-w-[300px]">
             {EXTRAS.map((extra) => (
               <label
+                htmlFor={extra.id}
                 className={`${
                   values.extras.length >= 10 &&
                   !values.extras.includes(extra.id)
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
-                } w-[40%] mobile:w-[30%] group flex items-center justify-start gap-3 text-gray-light font-bold`}
+                } w-[40%] mobile:w-[30%] group flex items-center justify-start gap-3 text-gray-light font-bold focus-within:ring-2 rounded-sm focus-within:ring-yellow focus-within:ring-offset-2`}
                 key={extra.id}
               >
                 <input
@@ -172,7 +193,8 @@ const OrderForm = ({ setOrderDetails }) => {
                   checked={values.extras.includes(extra.id)}
                   onChange={handleChange}
                   name="extras"
-                  className="hidden"
+                  aria-describedby="extras-error"
+                  className="opacity-0 absolute"
                 />
                 <div
                   className={`min-w-10 min-h-10 flex items-center justify-center rounded-md group-hover:border-yellow border-1 border-transparent transition-all
@@ -203,6 +225,8 @@ const OrderForm = ({ setOrderDetails }) => {
             ))}
           </div>
           <p
+            id="extras-error"
+            aria-live="polite"
             className={`text-red transition ${
               values.extras.length < 4 || values.extras.length === 10
                 ? "opacity-100"
@@ -215,8 +239,12 @@ const OrderForm = ({ setOrderDetails }) => {
                 "En fazla 10 malzeme seçebilirsiniz"}
           </p>
         </fieldset>
-        <fieldset className="flex flex-col items-start justify-center gap-3 w-full">
+        <fieldset
+          aria-labelledby="username-label"
+          className="flex flex-col items-start justify-center gap-3 w-full"
+        >
           <label
+            id="username-label"
             htmlFor="userName"
             className="text-xl font-semibold text-gray-medium"
           >
@@ -233,6 +261,7 @@ const OrderForm = ({ setOrderDetails }) => {
             placeholder="Siparişi teslim alacak kişinin adı"
           />
           <p
+            aria-live="polite"
             className={`text-red transition ${
               values.userName.length < 3 ? "opacity-100" : "opacity-0"
             }`}
@@ -240,8 +269,12 @@ const OrderForm = ({ setOrderDetails }) => {
             En az 3 karakter girin"
           </p>
         </fieldset>
-        <fieldset className="flex flex-col items-start justify-center gap-3 w-full">
+        <fieldset
+          aria-labelledby="note-label"
+          className="flex flex-col items-start justify-center gap-3 w-full"
+        >
           <label
+            id="note-label"
             htmlFor="note"
             className="text-xl font-semibold text-gray-medium"
           >
@@ -258,7 +291,10 @@ const OrderForm = ({ setOrderDetails }) => {
         </fieldset>
         <hr className="border-t-1 border-gray-light opacity-50 w-full !my-4"></hr>
         <div className="w-full flex items-start justify-start flex-col mobile:flex-row gap-2">
-          <div className="w-full mobile:w-fit flex items-center justify-center gap-0">
+          <fieldset
+            aria-labelledby="quantity-selection"
+            className="w-full mobile:w-fit flex items-center justify-center gap-0"
+          >
             <button
               type="button"
               disabled={values.quantity === 1}
@@ -287,7 +323,7 @@ const OrderForm = ({ setOrderDetails }) => {
             >
               +
             </button>
-          </div>
+          </fieldset>
           <div className="w-full">
             <div className="border-1 bg-beige border-divider rounded-sm w-full p-10 flex flex-col items-start justify-center gap-3 font-semibold">
               <h4 className="text-xl text-gray-medium">Sipariş Toplamı</h4>
@@ -311,7 +347,7 @@ const OrderForm = ({ setOrderDetails }) => {
           </div>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
