@@ -1,6 +1,6 @@
 describe("order form", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/order");
+    cy.visit("/order");
   });
 
   it("initializes with disabled button", () => {

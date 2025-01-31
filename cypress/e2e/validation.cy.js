@@ -1,6 +1,6 @@
 describe("order form validation", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/order");
+    cy.visit("/order");
   });
 
   it("shows error message unless size is selected", () => {

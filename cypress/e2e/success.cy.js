@@ -21,6 +21,6 @@ describe("success page", () => {
 });
 
 it("redirects to home page when visited without ordering", () => {
-  cy.visit("http://localhost:5173/success");
+  cy.visit("/success");
   cy.location("pathname").should("eq", "/");
 });
